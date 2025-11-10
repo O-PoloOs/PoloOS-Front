@@ -117,6 +117,16 @@ body {
 .console__input { background: #0d1426; border: 1px solid #1f2b4a; color: #e7eef7; padding: 8px 10px; border-radius: 8px; font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .console__input:focus { outline: 2px solid rgba(46,234,59,0.33); }
 
+/* Chat */
+.chat { display: grid; grid-template-rows: 1fr auto; height: 100%; background: #0e1527; }
+.chat__messages { padding: 14px; overflow: auto; display: flex; flex-direction: column; gap: 10px; }
+.chat__bubble { max-width: 70%; padding: 10px 12px; border-radius: 14px; font-size: 14px; line-height: 1.4; }
+.chat__bubble.bot { background: rgba(46,234,59,0.12); border: 1px solid rgba(46,234,59,0.35); color: #dff7e4; align-self: flex-start; }
+.chat__bubble.me { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); align-self: flex-end; }
+.chat__inputbar { display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; border-top: 1px solid #1f2b4a; padding: 10px 12px; }
+.chat__input { background: #0d1426; border: 1px solid #1f2b4a; color: #a7b4c8; padding: 10px 12px; border-radius: 10px; font-size: 14px; }
+.chat__send { background: rgba(255,255,255,0.1); color: #cfd9eb; border: 1px solid rgba(255,255,255,0.2); padding: 10px 14px; border-radius: 10px; }
+
 /* Taskbar */
 .taskbar {
   position: absolute; left: 0; right: 0; bottom: 0; height: 54px; display: flex; align-items: center; justify-content: space-between;

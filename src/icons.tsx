@@ -70,3 +70,19 @@ export const PowerIcon: React.FC<{ size?: number }> = ({ size = 72 }) => (
     </g>
   </svg>
 )
+
+export const ChatIcon: React.FC<{ size?: number }> = ({ size = 56 }) => (
+  <svg width={size} height={size} viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="chatBg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stopColor="#1a2336"/>
+        <stop offset="100%" stopColor="#0f1729"/>
+      </linearGradient>
+    </defs>
+    <rect x="8" y="10" width="48" height="36" rx="8" fill="url(#chatBg)" stroke="#2b3650" strokeWidth="2"/>
+    <path d="M22 48l8-8h18a6 6 0 006-6" fill="#0f1729" stroke="#2b3650" strokeWidth="2"/>
+    <circle cx="22" cy="28" r="3" fill="#a8c3ff"/>
+    <circle cx="32" cy="28" r="3" fill="#a8c3ff"/>
+    <circle cx="42" cy="28" r="3" fill="#a8c3ff"/>
+  </svg>
+)
