@@ -14,7 +14,7 @@ import { api } from './api'
 type AppName = 'notepad' | 'console' | 'polichat'
 
 export default function App() {
-  const { user } = useAuth()
+  const { user, logout } = useAuth()
   const [open, setOpen] = useState<Record<AppName, boolean>>({ notepad: false, console: false, polichat: false })
   // Flujo de arranque completo: encendido -> boot -> login -> desktop
   const [phase, setPhase] = useState<'off' | 'boot' | 'login' | 'desktop'>('off')
@@ -107,6 +107,20 @@ export default function App() {
       )}
 
       <div className="taskbar">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <button
+            className="logout-btn"
+            onClick={() => {
+              // Cerrar todas las apps, limpiar estado y volver al login
+              setOpen({ notepad: false, console: false, polichat: false })
+              setSelectedFileId(null)
+              logout()
+              setPhase('login')
+            }}
+          >
+            Cerrar sesión
+          </button>
+        </div>
         <div className="taskbar__clock">{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
       </div>
     </div>

@@ -156,4 +156,15 @@ body {
 
 .taskbar__clock { color: var(--muted); font-size: 12px; }
 
+/* Logout button */
+.logout-btn {
+  background: rgba(255,255,255,0.1);
+  color: #e7eef7;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+.logout-btn:hover { background: rgba(255,255,255,0.2); }
+
 
