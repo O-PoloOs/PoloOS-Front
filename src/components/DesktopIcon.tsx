@@ -6,13 +6,14 @@ type Props = {
   onOpen: () => void
   top?: number
   left?: number
+  zIndex?: number
 }
 
-export default function DesktopIcon({ label, icon, onOpen, top = 24, left = 24 }: Props) {
+export default function DesktopIcon({ label, icon, onOpen, top = 24, left = 24, zIndex = 1 }: Props) {
   return (
     <button
       className="desktop-icon"
-      style={{ top, left }}
+      style={{ top, left, zIndex }}
       onDoubleClick={onOpen}
       title={label}
     >
