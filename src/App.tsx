@@ -4,9 +4,10 @@ import Window from './components/Window'
 import Notepad from './apps/Notepad'
 import ConsoleMock from './apps/ConsoleMock'
 import PoliChat from './apps/PoliChat'
-import { ConsoleIcon, NotepadIcon, ChatIcon } from './icons'
+import { ConsoleIcon, NotepadIcon, ChatIcon, WindowsIcon } from './icons'
 import PowerScreen from './boot/PowerScreen'
 import BootLogo from './boot/BootLogo'
+import ShutdownScreen from './boot/ShutdownScreen'
 import LoginScreen from './boot/LoginScreen'
 import { useAuth } from './state/AuthContext'
 import { api } from './api'
@@ -16,10 +17,11 @@ type AppName = 'notepad' | 'console' | 'polichat'
 export default function App() {
   const { user, logout } = useAuth()
   const [open, setOpen] = useState<Record<AppName, boolean>>({ notepad: false, console: false, polichat: false })
-  // Flujo de arranque completo: encendido -> boot -> login -> desktop
-  const [phase, setPhase] = useState<'off' | 'boot' | 'login' | 'desktop'>('off')
+  // Flujo completo: encendido -> boot -> login -> desktop -> shutdown
+  const [phase, setPhase] = useState<'off' | 'boot' | 'login' | 'desktop' | 'shutdown'>('off')
   const [files, setFiles] = useState<Array<{ id: string; name: string; content: string }>>([])
   const [selectedFileId, setSelectedFileId] = useState<string | null>(null)
+  const [showPower, setShowPower] = useState(false)
 
   // Efectos SIEMPRE al tope: suscribirse a eventos y cargar archivos solo si hay usuario
   useEffect(() => {
@@ -44,6 +46,7 @@ export default function App() {
   if (phase === 'off') return <PowerScreen onPower={() => setPhase('boot')} />
   if (phase === 'boot') return <BootLogo onDone={() => setPhase('login')} />
   if (phase === 'login') return <LoginScreen onLogin={() => setPhase('desktop')} />
+  if (phase === 'shutdown') return <ShutdownScreen onDone={() => setPhase('off')} />
 
   return (
     <div className="desktop">
@@ -107,19 +110,44 @@ export default function App() {
       )}
 
       <div className="taskbar">
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div className="taskbar__left">
           <button
-            className="logout-btn"
-            onClick={() => {
-              // Cerrar todas las apps, limpiar estado y volver al login
-              setOpen({ notepad: false, console: false, polichat: false })
-              setSelectedFileId(null)
-              logout()
-              setPhase('login')
-            }}
+            className="start-btn"
+            aria-label="Abrir menú de energía"
+            onClick={() => setShowPower((v) => !v)}
           >
-            Cerrar sesión
+            <WindowsIcon />
           </button>
+          {showPower && (
+            <div className="power-menu" role="dialog" aria-label="Opciones de energía">
+              <button
+                className="power-menu__btn danger"
+                onClick={() => {
+                  // Apagar: cerrar todo, limpiar token y volver al estado "off"
+                  setOpen({ notepad: false, console: false, polichat: false })
+                  setSelectedFileId(null)
+                  logout()
+                  setShowPower(false)
+                  setPhase('shutdown')
+                }}
+              >
+                Apagar
+              </button>
+              <button
+                className="power-menu__btn"
+                onClick={() => {
+                  // Cerrar sesión: limpiar token y volver al formulario de login
+                  setOpen({ notepad: false, console: false, polichat: false })
+                  setSelectedFileId(null)
+                  logout()
+                  setShowPower(false)
+                  setPhase('login')
+                }}
+              >
+                Cerrar sesión
+              </button>
+            </div>
+          )}
         </div>
         <div className="taskbar__clock">{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
       </div>

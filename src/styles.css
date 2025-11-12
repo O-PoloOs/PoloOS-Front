@@ -81,6 +81,10 @@ body {
   box-shadow: var(--shadow);
   backdrop-filter: blur(12px) saturate(120%);
   overflow: hidden;
+  /* Allow user to resize the window by dragging a corner */
+  resize: both;
+  min-width: 360px;
+  min-height: 260px;
   z-index: 1000;
 }
 .window__titlebar {
@@ -133,7 +137,7 @@ body {
   padding: 0 16px; background: rgba(12,16,30,0.6); border-top: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(10px);
   z-index: 2001;
 }
-.taskbar__left { display: flex; align-items: center; gap: 10px; }
+.taskbar__left { display: flex; align-items: center; gap: 10px; position: relative; }
 .start-btn {
   width: 40px; height: 40px; border: none; border-radius: 10px; background: rgba(255,255,255,0.08); display: grid; place-items: center; color: #cfeedd;
 }
@@ -167,4 +171,44 @@ body {
 }
 .logout-btn:hover { background: rgba(255,255,255,0.2); }
 
+/* Power menu */
+.power-menu {
+  position: absolute;
+  left: 0;
+  bottom: 58px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(20,24,38,0.9);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px) saturate(120%);
+}
+.power-menu__btn {
+  background: rgba(255,255,255,0.08);
+  color: #e7eef7;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 12px;
+  padding: 12px 16px;
+  min-width: 140px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+.power-menu__btn:hover { background: rgba(255,255,255,0.16); }
+.power-menu__btn.danger { background: #ff5f5633; border-color: #ff5f5688; }
+.power-menu__btn.danger:hover { background: #ff5f5655; }
 
+
+/* Scrollbar: ocultar pero mantener el scroll */
+/* Firefox */
+* { scrollbar-width: none; }
+/* IE/Edge heredado */
+html, body, * { -ms-overflow-style: none; }
+/* Chromium/WebKit */
+*::-webkit-scrollbar { width: 0; height: 0; }
