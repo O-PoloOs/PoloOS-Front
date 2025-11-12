@@ -20,7 +20,7 @@ export default function PoliChat() {
     setSending(true)
     try {
       let acc = ''
-      await api.ai.chat(text, 'rrhh_policies', (chunk) => {
+      await api.ai.chat(text, 'PoloOS', (chunk) => {
         acc += chunk
         setMsgs((m) => {
           const copy = [...m]

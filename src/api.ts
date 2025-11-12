@@ -93,7 +93,7 @@ export const api = {
   events: () => new EventSource(`${BASE_URL}/api/events`),
 
   ai: {
-    async chat(input_user: string, collection_name = 'rrhh_policies', onChunk?: (s: string) => void) {
+    async chat(input_user: string, collection_name = 'PoloOS', onChunk?: (s: string) => void) {
       const res = await fetch(`${AI_BASE_URL}/chat/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
